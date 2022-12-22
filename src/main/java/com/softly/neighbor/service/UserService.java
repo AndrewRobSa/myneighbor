@@ -1,5 +1,6 @@
 package com.softly.neighbor.service;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import com.softly.neighbor.persistence.entities.User;
@@ -46,10 +47,12 @@ public class UserService {
 	 */
 	public boolean exists(String email) {
 		Optional<User> user = this.userRepository.findByEmail(email);
-		if(user.get()!=null) {
-			return true;
-		}else {
+		try {
+			User result = user.get();
+			return result != null;
+		} catch (NoSuchElementException e) {
 			return false;
 		}
+
 	}
 }

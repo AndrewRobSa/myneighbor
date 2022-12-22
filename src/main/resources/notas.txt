@@ -1,0 +1,4 @@
+oauth:
+https://console.cloud.google.com/apis/credentials?project=myneighbor-372403&supportedpurview=project
+https://developers.google.com/identity/openid-connect/openid-connect
+https://spring.io/guides/tutorials/spring-boot-oauth2/

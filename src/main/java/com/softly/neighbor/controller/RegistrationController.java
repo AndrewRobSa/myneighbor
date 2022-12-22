@@ -37,7 +37,6 @@ public class RegistrationController {
 	@Getter @Setter @NoArgsConstructor
 	private static class RegistrationUser{
 		
-		private String username;
 		private String firstName;
 		private String lastName;
 		private String email;
@@ -53,10 +52,10 @@ public class RegistrationController {
 		HashMap<String, Object> result = new HashMap<>();
 		
 		//Make the validations. None of the fields should be left blank
-		if(StringUtils.isBlank(user.getUsername()) || StringUtils.isBlank(user.getFirstName()) || 
-				StringUtils.isBlank(user.getLastName()) || StringUtils.isBlank(user.getEmail())|| 
-				StringUtils.isBlank(user.getPassword()) || StringUtils.isBlank(user.getConfirmPassword()) || 
-				StringUtils.isBlank(user.getPhoneNumber()) || StringUtils.isBlank(user.getBirthDate())) {
+		if(StringUtils.isBlank(user.getFirstName()) || StringUtils.isBlank(user.getLastName()) || 
+				StringUtils.isBlank(user.getEmail())|| StringUtils.isBlank(user.getPassword()) || 
+				StringUtils.isBlank(user.getConfirmPassword()) || StringUtils.isBlank(user.getPhoneNumber()) || 
+				StringUtils.isBlank(user.getBirthDate())) {
 			result.put("response", RESULT.ERROR);
 			result.put("message", "All the fields must be fullfiled.");
 			return new ResponseEntity<HashMap<String, Object>>(result, HttpStatus.OK);
