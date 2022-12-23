@@ -4,18 +4,21 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import com.softly.neighbor.persistence.entities.Person;
 import com.softly.neighbor.persistence.entities.User;
+import com.softly.neighbor.service.DocumentService;
 import com.softly.neighbor.service.PersonService;
 import com.softly.neighbor.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import io.micrometer.common.util.StringUtils;
 import lombok.Getter;
@@ -31,6 +34,10 @@ public class RegistrationController {
 	@Autowired
 	PersonService personService;
 	
+	@Autowired
+	DocumentService documentService;
+	
+	
 	private static String DATE_FORMAT = "dd/MM/yyyy";
 	private static SimpleDateFormat FORMATTER = new SimpleDateFormat(DATE_FORMAT);
 	
@@ -45,10 +52,11 @@ public class RegistrationController {
 		private String phoneNumber;
 		private String gender;
 		private String birthDate;
+		private List<MultipartFile> files;
 	}
 	
 	@PostMapping("registration")
-	public ResponseEntity<?> registrate(@RequestBody RegistrationUser user){
+	public ResponseEntity<?> registrate(@ModelAttribute RegistrationUser user){
 		HashMap<String, Object> result = new HashMap<>();
 		
 		//Make the validations. None of the fields should be left blank
@@ -60,6 +68,12 @@ public class RegistrationController {
 			result.put("message", "All the fields must be fullfiled.");
 			return new ResponseEntity<HashMap<String, Object>>(result, HttpStatus.OK);
 		} 
+		
+		if(user.getFiles() == null) {
+			result.put("response", RESULT.ERROR);
+			result.put("message", "It's mandatory to add a credential with your registration.");
+			return new ResponseEntity<HashMap<String, Object>>(result, HttpStatus.OK);
+		}
 		
 		if(this.userService.exists(user.getEmail())) {
 			result.put("response", RESULT.ERROR);
@@ -95,6 +109,14 @@ public class RegistrationController {
 		} catch (NumberFormatException e) {
 			result.put("response", RESULT.ERROR);
 			result.put("message", "El numero de telefono ingresado no es valido.");
+			return new ResponseEntity<HashMap<String, Object>>(result, HttpStatus.OK);
+		}
+		
+		try {
+			user.getFiles().forEach(documentService::save);
+		} catch (Exception e) {
+			result.put("response", RESULT.ERROR);
+			result.put("message", e.getMessage());
 			return new ResponseEntity<HashMap<String, Object>>(result, HttpStatus.OK);
 		}
 		

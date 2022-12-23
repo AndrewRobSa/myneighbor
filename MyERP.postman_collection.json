@@ -1,0 +1,281 @@
+{
+	"info": {
+		"_postman_id": "04091a27-d1f3-4a51-827c-689b6a7a94c5",
+		"name": "MyERP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24933750"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/logout",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/login",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/processLogin?email=andrewstooge@outlook.com&password=contraseña1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"processLogin"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "andrewstooge@outlook.com"
+								},
+								{
+									"key": "password",
+									"value": "contraseña1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "github login",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/oauth2/authorization/github",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"oauth2",
+								"authorization",
+								"github"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "current user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/user",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "google login",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/oauth2/authorization/google",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"oauth2",
+								"authorization",
+								"google"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Registration",
+			"item": [
+				{
+					"name": "Registration",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "firstName",
+									"value": "Andres",
+									"type": "text"
+								},
+								{
+									"key": "lastName",
+									"value": "Robledo",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "andrewstooge3@outlook.com",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "M",
+									"type": "text"
+								},
+								{
+									"key": "birthDate",
+									"value": "28/05/2001",
+									"type": "text"
+								},
+								{
+									"key": "phoneNumber",
+									"value": "8113015086",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "contraseña1",
+									"type": "text"
+								},
+								{
+									"key": "confirmPassword",
+									"value": "contraseña1",
+									"type": "text"
+								},
+								{
+									"key": "files\n",
+									"type": "file",
+									"src": "/C:/Users/TheIceMan/Documents/JAVA/servicio rest.txt"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8080/registration",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"registration"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Birds",
+			"item": [
+				{
+					"name": "birds",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/birds",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"birds"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "saveBird",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 0,\r\n    \"specie\": \"Eagle\",\r\n    \"size\": \"big\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/saveBird",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"saveBird"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

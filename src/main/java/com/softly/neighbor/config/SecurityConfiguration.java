@@ -39,20 +39,22 @@ public class SecurityConfiguration {
 	@Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable().cors().disable()
-        		.authorizeHttpRequests().requestMatchers("/login", "/registration").permitAll()
+        		.authorizeHttpRequests().requestMatchers("/", "/login", "/login?logout", "/login?error", 
+        				"/error", "/registration").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
 	                .loginPage("/login")
-	                .permitAll()
-	                .defaultSuccessUrl("/home")
-	                .failureUrl("/loginFailed")
+	                .loginProcessingUrl("/processLogin")
+	                .failureUrl("/login?error")
+	                .defaultSuccessUrl("/home", true)
 	                .usernameParameter("email")
 	                .passwordParameter("password")
+	                .permitAll()
 	                .and()
                 .logout()
 	                .permitAll()
-	                .logoutSuccessUrl("/login");
+	                .logoutSuccessUrl("/login?logout");
  
         http.headers().frameOptions().sameOrigin();
         
