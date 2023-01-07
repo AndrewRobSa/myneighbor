@@ -2,3 +2,30 @@ oauth:
 https://console.cloud.google.com/apis/credentials?project=myneighbor-372403&supportedpurview=project
 https://developers.google.com/identity/openid-connect/openid-connect
 https://spring.io/guides/tutorials/spring-boot-oauth2/
+https://www.baeldung.com/spring-boot-https-self-signed-certificate
+https://reflectoring.io/spring-csrf/
+https://www.javainuse.com/spring/spring-boot-oauth-access-token
+https://blog.hcf.dev/article/2020-10-31-spring-boot-part-07
+https://github.com/hendisantika/spring-boot-security-oauth2-example/blob/master/src/main/java/com/hendisantika/config/AuthorizationServerConfig.java
+https://www.jessym.com/articles/stateless-oauth2-social-logins-with-spring-boot
+https://medium.com/geekculture/jwt-authentication-with-oauth2-resource-server-and-an-external-authorization-server-2b8fd1524fc8
+https://docs.spring.io/spring-security/site/docs/5.0.7.RELEASE/reference/html/oauth2login-advanced.html
+https://docs.spring.io/spring-security/reference/servlet/oauth2/login/advanced.html#oauth2login-advanced-oidc-user-service
+https://www.devglan.com/spring-security/spring-boot-security-google-oauth
+https://www.baeldung.com/spring-security-oauth-principal-authorities-extractor
+
+@Bean
+    UsernamePasswordAuthenticationFilter customUserPasswordFilter(AuthenticationManager manager) {
+    	UsernamePasswordAuthenticationFilter filter = new CustomUserPasswordFilter();
+    	filter.setAuthenticationManager(this.authProvider());
+    	filter.setAuthenticationFailureHandler(new SimpleUrlAuthenticationFailureHandler("/login?error"));
+    	return filter;
+    }
+    
+    @Bean
+    AuthTokenFilter authenticationJwtTokenFilter() {
+      return new AuthTokenFilter();
+    }
+    
+      .and()
+            .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);

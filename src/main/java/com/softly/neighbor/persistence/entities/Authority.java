@@ -19,5 +19,5 @@ public class Authority {
 	
 	@Column
 	private String authority;
-	
+
 }

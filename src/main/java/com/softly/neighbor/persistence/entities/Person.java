@@ -25,6 +25,9 @@ public class Person {
 	@Column 
 	private String lastName;
 	
+	@Column
+	private String fullName;
+	
 	@Column 
 	private String phoneNumber;
 	

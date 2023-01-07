@@ -48,6 +48,9 @@ public class User {
 	@Column 
 	private Date lastLogin;
 	
+	@Column
+	private String clientRegistration;
+	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 		name="authorities_users",
@@ -100,5 +103,16 @@ public class User {
 		this.lastLogin = this.creationDate;
 		this.enabled = true;
 		this.person = person;
+	}
+	
+	/**
+	 * This method is invoked in creation of a new user through a third party (OAuth)
+	 * @param email
+	 * @param clientRegistration
+	 */
+	public User(String email, String clientRegistration) {
+		this.clientRegistration = clientRegistration;
+		this.email = email;
+		this.enabled = true;
 	}
 }

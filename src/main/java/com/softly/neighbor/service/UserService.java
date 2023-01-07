@@ -1,13 +1,12 @@
 package com.softly.neighbor.service;
 
-import java.util.NoSuchElementException;
-import java.util.Optional;
-
+import java.util.Date;
 import com.softly.neighbor.persistence.entities.User;
 import com.softly.neighbor.persistence.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -40,19 +39,21 @@ public class UserService {
 		return "ok";
 	}
 	
+	public String registrateUserWithGoogle(OidcUser googleUser) {
+		User user = new User();
+		user.setEmail(googleUser.getEmail());
+		user.setCreationDate(new Date());
+		user.setLastLogin(user.getCreationDate());
+		this.userRepository.save(user);
+		return "ok";
+	}
+	
 	/**
 	 * Verify if an email is already linked to an user
 	 * @param email
 	 * @return
 	 */
 	public boolean exists(String email) {
-		Optional<User> user = this.userRepository.findByEmail(email);
-		try {
-			User result = user.get();
-			return result != null;
-		} catch (NoSuchElementException e) {
-			return false;
-		}
-
+		return this.userRepository.existsByEmail(email);
 	}
 }
